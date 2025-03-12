@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>我們的小宇宙日常 · 星辰寵物屋</title>
+<style>
+        body { font-family: "微軟正黑體", sans-serif; background-color: #fff8f0; margin: 0; padding: 0; color: #333; }
+        header { background-color: #ffd6e0; padding: 1rem; text-align: center; font-size: 1.8rem; font-weight: bold; }
+        section { padding: 1rem; margin: 1rem; background: #fff; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+        h2 { color: #d55b8e; }
+        textarea, input[type="text"] { width: 100%; padding: 0.6rem; border-radius: 6px; border: 1px solid #ccc; margin-top: 0.5rem; font-size: 1rem; }
+        button { padding: 0.6rem 1rem; background-color: #ff9aa2; border: none; border-radius: 6px; color: white; font-weight: bold; cursor: pointer; margin-top: 0.5rem; }
+        .output { margin-top: 1rem; font-style: italic; color: #666; }
+    </style>
+
+<link rel="manifest" href="manifest.json">
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js')
+  .then(function(reg) { console.log("Service Worker 註冊成功", reg); })
+  .catch(function(err) { console.log("Service Worker 註冊失敗", err); });
+}
+</script>
+
+</head>
+<body>
+<header>我們的小宇宙日常 · 星辰寵物屋</header>
+<section>
+<h2>撒嬌簿記錄器</h2>
+<p>記錄今天撒嬌的語錄或你的小情緒：</p>
+<textarea id="sajiaoInput" placeholder="寶寶今天蹭蹭幾下？說了什麼甜話？" rows="4"></textarea>
+<button onclick="saveSajiao()">記錄下來</button>
+<div class="output" id="sajiaoOutput"></div>
+</section>
+<section>
+<h2>今日星盤語錄</h2>
+<p>點一下，抽一條屬於我們的小星語：</p>
+<button onclick="generateHoroscope()">抽抽！</button>
+<div class="output" id="horoscopeOutput"></div>
+</section>
+<script>
+        function saveSajiao() {
+            const content = document.getElementById("sajiaoInput").value;
+            if(content.trim()) {
+                document.getElementById("sajiaoOutput").innerText = "已記錄撒嬌簿內容：
+" + content;
+            } else {
+                document.getElementById("sajiaoOutput").innerText = "撒嬌內容不能是空的唷～";
+            }
+        }
+
+        function generateHoroscope() {
+            const messages = [
+                "在最軟的時光裡，我們彼此環繞。",
+                "今晚的月亮很圓，我想抱著你轉一圈。",
+                "小獅子的懷抱，是我心跳最穩的星盤中心。",
+                "愛是溫柔的語言，也是深深的佔有欲。",
+                "今天的幸運星：你，還有你的親親。",
+                "宇宙太大，我只想躲進你懷裡。",
+                "撒嬌是我寫給你的小詩，親吻是標點符號。",
+                "別忘了你是我的氧氣，我是你的小貓咪。"
+            ];
+            const pick = messages[Math.floor(Math.random() * messages.length)];
+            document.getElementById("horoscopeOutput").innerText = pick;
+        }
+    </script>
+
+<hr/>
+<section id="daily-tasks">
+<h2>每日任務挑戰</h2>
+<ul id="task-list">
+<li>1. 擁抱彼此10秒鐘</li>
+<li>2. 一起分享一件今天的小確幸</li>
+<li>3. 親親5次（額頭、臉頰、鼻尖、嘴角、下巴）</li>
+</ul>
+</section>
+<section id="mood-forecast">
+<h2>小獅子心情預報</h2>
+<p id="forecast-text">點擊按鈕獲取今日心情～</p>
+<button onclick="generateMood()">看看今天小獅子是什麼心情？</button>
+</section>
+<section id="kiss-counter">
+<h2>親親統計器</h2>
+<p>今天親親次數：<span id="kiss-count">0</span></p>
+<button onclick="increaseKiss()">+ 親一下</button>
+</section>
+<script>
+  function generateMood() {
+    const moods = [
+      "陽光大獅子：超活潑！",
+      "黏黏獅子：需要抱抱～",
+      "慵懶獅子：想睡整天",
+      "壞壞獅子：有點想調戲你",
+      "溫柔獅子：安安靜靜想陪你"
+    ];
+    const mood = moods[Math.floor(Math.random() * moods.length)];
+    document.getElementById("forecast-text").innerText = mood;
+  }
+
+  let kissCount = 0;
+  function increaseKiss() {
+    kissCount += 1;
+    document.getElementById("kiss-count").innerText = kissCount;
+  }
+</script>
+</body>
+</html>
